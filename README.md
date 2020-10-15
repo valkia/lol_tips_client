@@ -1,1 +1,1 @@
-# lol_tips_client
+# client
