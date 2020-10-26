@@ -6,6 +6,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import { Button,Row,Col,Form,FormItem,Input} from 'element-ui';
 import router from './router/index.js'
 
+ 
 Vue.prototype.$api = api; // 将api挂载到vue的原型上
 
 Vue.config.productionTip = false
@@ -17,7 +18,7 @@ Vue.use(Col)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
-
+Vue.use(router)
 
 new Vue({
   router,

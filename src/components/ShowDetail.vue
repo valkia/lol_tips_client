@@ -7,7 +7,6 @@
 
 
 <script>
-import { ipcRenderer } from window.electron;
 import config from "../src/native/config";
 import { QQChampionAvatarPrefix, getChampions } from '../src/service/qq';
 import LCUService from '../src/service/lcu';
@@ -88,7 +87,7 @@ export default {
         getChampions(lolVer).then(championList => {
           setChampionMap(championList);
 
-          ipcRenderer.on("for-popup", (event, { championId: id }) => {
+          window.electron.ipcRenderer.on("for-popup", (event, { championId: id }) => {
             if (id) {
               setChampionId(id);
             }

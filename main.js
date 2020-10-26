@@ -53,13 +53,13 @@ const createMainWindow = async () => {
         width: 800,
         height: 600,
         webPreferences,
-        title: '截图',
+        title: 'lol符文助手',
 
     })
 
     // and load the index.html of the app.
     //mainWindow.loadFile('dist/index.html')
-    mainWindow.loadURL('http://localhost:8080/#/');
+    mainWindow.loadURL('http://localhost:8080/#/display');    
 
     mainWindow.webContents.openDevTools();
     // Open the DevTools.
@@ -99,7 +99,7 @@ const createPopupWindow = async () => {
 
     await popup.loadURL(
         isDev
-            ? `http://127.0.0.1:8080/index.html`
+            ? `http://127.0.0.1:8080/#/showDetail`
             : `file://${path.join(__dirname, 'build/popup.html')}`,
     );
 

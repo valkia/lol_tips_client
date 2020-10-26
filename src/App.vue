@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Display></Display>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -48,7 +48,7 @@ export default {
   mounted: function () {
     this.init();
     //this.time();
-    this.getOpggPerks();
+    //this.getOpggPerks();
   },
 
   methods: {
@@ -66,9 +66,11 @@ export default {
         instance
           .import()
           .then(() => {
-            toaster.positive(`[OP.GG] ${t(`completed`)}`);
+            console.log("[OP.GG] completed");
+            // toaster.positive(`[OP.GG] ${t(`completed`)}`);
           })
           .catch((err) => {
+            console.log("err:" + err);
             if (err.message === `Error: Cancel`) {
               setCancel(cancelled.concat(Sources.Opgg));
               toaster.negative(`${t(`cancelled`)}: ${Sources.Opgg}`);
@@ -77,8 +79,10 @@ export default {
       //opggTask();
       try {
         Promise.all([opggTask()]).then((values) => {
-          console.log(values);
+          console.log(`values:${values}`);
         });
+      } catch (e) {
+        console.log(`Promise.all e:${e}`);
       } finally {
         console.log("finish");
       }

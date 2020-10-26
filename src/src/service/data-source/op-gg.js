@@ -305,13 +305,14 @@ export default class OpGG extends SourceProto {
   import = async () => {
     const { dispatch, lolDir } = this;
     try {
+      console.log(`allChampions`);
       const allChampions = await this.getStat();
-
+      console.log(`${JSON.stringify(allChampions)}`);
       const tasks = allChampions.reduce((t, item) => {
         const { positions, key: champion } = item;
         const positionTasks = positions.map((position) => {
           const identity = uuid();
-
+          console.log(`identity:${identity}`);
           dispatch(
             addFetching({
               champion,
@@ -320,8 +321,9 @@ export default class OpGG extends SourceProto {
               source: Sources.Opgg,
             }),
           );
-
+          console.log(`return1`);
           return this.genChampionData(champion, position, identity).then((data) => {
+            console.log(`data:${JSON.stringify(data)}`);
             dispatch(
               addFetched({
                 ...data,
@@ -332,18 +334,27 @@ export default class OpGG extends SourceProto {
             return data;
           });
         });
-
-        return t.concat(positionTasks);
+        console.log(`return2`);
+        let tmp = t.concat(positionTasks);
+        console.log(`tmp${tmp}`);
+        return tmp;
       }, []);
-
+      console.log(`fetched`);
       const fetched = await Promise.all(tasks);
+      // .then((res)=>{
+      //   console.log(`res:${res}`);
+      // }).catch(e=>{
+      //   console.log(`e:${e}`);
+      // }); 
+      console.log(`fetched ${fetched}`);
       const t = fetched.map((i) => saveToFile(lolDir, i));
-
+      console.log(` t end`);
       const result = await Promise.all(t);
       dispatch(fetchSourceDone(Sources.Opgg));
 
       return result;
     } catch (error) {
+      console.log(`error: ${error}`);
       throw new Error(error);
     }
   };
