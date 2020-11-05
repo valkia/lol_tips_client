@@ -9,6 +9,8 @@ import Sources from '../../share/constants/sources';
 import SourceProto from './source-proto';
 import _find from 'lodash/find';
 
+
+
 const OpggUrl = 'https://www.op.gg';
 
 export const getSpellName = (imgSrc = '') => {
@@ -144,6 +146,7 @@ export default class OpGG extends SourceProto {
   genBlocks = async (champion, position, id) => {
     const { itemMap } = this;
     try {
+      
       const $ = await requestHtml(
         `${OpggUrl}/champion/${champion}/statistics/${position}/item`,
         this.setCancelHook(id),
@@ -309,7 +312,7 @@ export default class OpGG extends SourceProto {
       const allChampions = await this.getStat();
       console.log(`${JSON.stringify(allChampions)}`);
       const tasks = allChampions.reduce((t, item) => {
-        const { positions, key: champion } = item;
+          const { positions, key: champion } = item;
         const positionTasks = positions.map((position) => {
           const identity = uuid();
           console.log(`identity:${identity}`);
@@ -338,6 +341,7 @@ export default class OpGG extends SourceProto {
         let tmp = t.concat(positionTasks);
         console.log(`tmp${tmp}`);
         return tmp;
+        
       }, []);
       console.log(`fetched`);
       const fetched = await Promise.all(tasks);
