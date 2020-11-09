@@ -59,7 +59,7 @@ const createMainWindow = async () => {
 
     // and load the index.html of the app.
     //mainWindow.loadFile('dist/index.html')
-    mainWindow.loadURL('http://localhost:8080/#/display');    
+    mainWindow.loadURL('http://localhost:8080/#/display');
 
     mainWindow.webContents.openDevTools();
     // Open the DevTools.
@@ -77,7 +77,7 @@ const createPopupWindow = async () => {
     // TODO: remember window size & position
     const popup = new BrowserWindow({
         show: false,
-        frame: false,
+        frame: true,
         skipTaskbar: true,
         resizable: isDev || ignoreSystemScale,
         fullscreenable: false,
@@ -88,7 +88,7 @@ const createPopupWindow = async () => {
         y: curDisplay.bounds.height / 2,
         webPreferences,
     });
-
+    popup.webContents.openDevTools();
     // popup.on(`ready-to-show`, () => {
     //   popup.show();
     // });
@@ -116,9 +116,10 @@ function registerMainListeners() {
             popupWindow = await createPopupWindow();
         }
 
-        if (!popupWindow.isVisible()) {
+        popupWindow.show();
+        /*if (!popupWindow.isVisible()) {
             popupWindow.show();
-        }
+        }*/
 
         popupWindow.webContents.send(`for-popup`, {
             championId: data.championId,

@@ -102,7 +102,7 @@
                     console.log(`setInterval`);
                     try {
                         //let championId = this.getChampionId();
-                        let championId = 2003;
+                        let championId = 202;
 
                         if (!championId) {
                             console.log(`no matched.`);
